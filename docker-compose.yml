@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  hub:
+    image: selenium/standalone
+    ports:
+      - "4444:4444"
+
+  tests:
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    volumes:
+      - ./tests:/tests/
+
+  hub:
+    image: selenium/hub:3.14.0
+    expose:
+      - 4444
+
+
+  chrome:
+    image: selenium/node-chrome-debug:3.14.0
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=hub
+      - HUB_PORT_4444_TCP_PORT=4444
+    ports:
+      - 5900:5900
+    depends_on:
+      - hub
+
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
+
