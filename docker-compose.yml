@@ -11,7 +11,9 @@ services:
       context: .
       dockerfile: ./docker/python/Dockerfile
     volumes:
-      - ./tests:/tests/
+      - ./tests/downloads:/tests/downloads
+      - ./tests:/tests
+      - ./SearchFieldTest.py:/SearchFieldTest.py
 
   hub:
     image: selenium/hub:3.14.0
