@@ -11,6 +11,7 @@ def find_element(driver, locator):
     except TimeoutException:
         print ("element {} was not found".format(locator))
 
+
 def find_elements(driver, locator):
     delay = 3  # seconds
     try:
@@ -18,6 +19,7 @@ def find_elements(driver, locator):
 
     except TimeoutException:
         print ("element {} was not found".format(locator))
+
 
 def click_element(driver, locator):
     el = find_element(driver, locator)

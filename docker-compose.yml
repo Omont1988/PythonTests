@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+
   hub:
     image: selenium/standalone
     ports:
@@ -11,14 +12,10 @@ services:
       context: .
       dockerfile: ./docker/python/Dockerfile
     volumes:
-      - ./tests/downloads:/tests/downloads
       - ./tests:/tests
       - ./SearchFieldTest.py:/SearchFieldTest.py
-
-  hub:
-    image: selenium/hub:3.14.0
-    expose:
-      - 4444
+    entrypoint:
+      - python
 
 
   chrome:
@@ -31,6 +28,7 @@ services:
     depends_on:
       - hub
 
+
   portainer:
     image: portainer/portainer
     ports:
@@ -39,6 +37,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+
 
 volumes:
   portainer_data:

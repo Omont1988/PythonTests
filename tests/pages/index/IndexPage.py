@@ -19,3 +19,6 @@ class IndexPage(BasePage):
 
     def click_login_button(self):
         helper.click_element(self.driver, locators.login_button)
+
+    def click_gmail_signin(self):
+        helper.click_element(self.driver,locators.google_login_button)
